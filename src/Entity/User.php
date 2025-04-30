@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -33,6 +35,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    /**
+     * @var Collection<int, Code>
+     */
+    #[ORM\OneToMany(targetEntity: Code::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $codes;
+
+    public function __construct()
+    {
+        $this->codes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,5 +118,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Code>
+     */
+    public function getCodes(): Collection
+    {
+        return $this->codes;
+    }
+
+    public function addCode(Code $code): static
+    {
+        if (!$this->codes->contains($code)) {
+            $this->codes->add($code);
+            $code->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCode(Code $code): static
+    {
+        if ($this->codes->removeElement($code)) {
+            // set the owning side to null (unless already changed)
+            if ($code->getUserId() === $this) {
+                $code->setUserId(null);
+            }
+        }
+
+        return $this;
     }
 }
