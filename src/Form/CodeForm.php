@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Code;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,10 +25,10 @@ class CodeForm extends AbstractType
             ->add('domainName', TextType::class, [
                 'label' => 'Nom de domaine',
             ])
-            ->add('validFrom', DateTimeType::class, [
+            ->add('validFrom', DateType::class, [
                 'label' => 'Valide à partir de',
             ])
-            ->add('validUntil', DateTimeType::class, [
+            ->add('validUntil', DateType::class, [
                 'label' => 'Valide jusqu\'à',
             ])
         ;

@@ -21,7 +21,7 @@ final class Version20250501121715 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql(<<<'SQL'
-            CREATE TABLE code (id SERIAL NOT NULL, user_id INT NOT NULL, name VARCHAR(255) NOT NULL, discount DOUBLE PRECISION NOT NULL, domain_name VARCHAR(255) NOT NULL, valid_from TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, valid_until TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))
+            CREATE TABLE code (id SERIAL NOT NULL, user_id INT NOT NULL, name VARCHAR(255) NOT NULL, discount DOUBLE PRECISION NOT NULL, domain_name VARCHAR(255) NOT NULL, valid_from DATE NOT NULL, valid_until DATE NOT NULL, PRIMARY KEY(id))
         SQL);
         $this->addSql(<<<'SQL'
             CREATE INDEX IDX_77153098A76ED395 ON code (user_id)
