@@ -1,0 +1,27 @@
+{{ form_start(form) }}
+<article class="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-6">
+    <p class="text-gray-500 text-center">Remplissez le formulaire</p>
+
+    {{ form_label(form.name, '', {'attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+
+    {{ form_widget(form.name, {'attr': {'class': 'mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500'}}) }}
+
+    {{ form_label(form.discount, '', {'attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+    {{ form_widget(form.discount, {'attr': {'class': 'mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500'}}) }}
+
+    {{ form_label(form.domainName, '', {'attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+    {{ form_widget(form.domainName, {'attr': {'class': 'mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500'}}) }}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {{ form_label(form.validFrom, '', {'attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+        {{ form_widget(form.validFrom, {'attr': {'class': 'mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500'}}) }}
+
+        {{ form_label(form.validUntil, '', {'attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+        {{ form_widget(form.validUntil, {'attr': {'class': 'mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500'}}) }}
+    </div>
+
+    <p class="text-center">
+        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Enregistrer</button>
+    </p>
+</article>
+{{ form_end(form) }}

@@ -1,18 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello VipController!{% endblock %}
+{% block title %}Liste des codes promo{% endblock %}
 
 {% block body %}
-    <hgroup>
-        <h1>Les codes promo</h1>
-        <h3>Espace VIP</h3>
-    </hgroup>
-    {% for code in codes %}
-        <article>
-            <h2>{{ code.domainName }} <mark>{{ code.discount }} %</mark></h2>
-            <kbd>{{code.name}}</kbd>
-        </article>
-    {% else %}
-        <p>Aucun code promo pour le moment</p>
-    {% endfor %}
+    <h1 class="text-4xl font-bold text-gray-900 text-center sm:text-5xl">Liste des codes promo</h1>
+
+    <p class="text-end me-4"><a href="{{ path('app_code_new') }}" class="rounded-md bg-sky-600 p-2 font-medium text-white shadow-sm transition-colors hover:bg-sky-800">Ajouter un code promo</a></p>
+
+    <div class="overflow-x-auto my-4">
+        <table class="min-w-full divide-y-2 divide-gray-200">
+            <thead class="ltr:text-left rtl:text-right">
+            <tr class="*:font-medium *:text-gray-900">
+                <th class="px-3 py-2 whitespace-nowrap">Code</th>
+                <th class="px-3 py-2 whitespace-nowrap">Réduction (%)</th>
+                <th class="px-3 py-2 whitespace-nowrap">Nom de domaine</th>
+                <th class="px-3 py-2 whitespace-nowrap">Valide à partir de</th>
+                <th class="px-3 py-2 whitespace-nowrap">Valide jusqu'à</th>
+                <th class="px-3 py-2 whitespace-nowrap">Action</th>
+            </tr>
+            </thead>
+
+            <tbody class="divide-y divide-gray-200 *:even:bg-gray-50">
+            {% for code in codes %}
+                <tr class="*:text-gray-900 *:first:font-medium text-center">
+                    <td class="px-3 py-2 whitespace-nowrap">{{ code.name }}</td>
+                    <td class="px-3 py-2 whitespace-nowrap">{{ code.discount }}</td>
+                    <td class="px-3 py-2 whitespace-nowrap">{{ code.domainName }}</td>
+                    <td class="px-3 py-2 whitespace-nowrap">{{ code.validFrom ? code.validFrom|date('Y-m-d à H:i:s') : '' }}</td>
+                    <td class="px-3 py-2 whitespace-nowrap">{{ code.validUntil ? code.validUntil|date('Y-m-d à H:i:s') : '' }}</td>
+                    <td class="px-3 py-2 whitespace-nowrap flex justify-center gap-2 p-2">
+                        <a href="{{ path('app_code_edit', {'id': code.id}) }}" class="rounded-md bg-teal-600 p-1 font-medium text-white shadow-sm transition-colors hover:bg-teal-800">Modifier</a>
+                        {{ include('code/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td>Aucun code promo</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

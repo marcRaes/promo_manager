@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un code promo{% endblock %}
+
+{% block body %}
+    <h1>Modifier un code promo</h1>
+
+    {{ include('code/_form.html.twig') }}
+
+    <a href="{{ path('app_code_index') }}">Revenir à la liste des codes promo</a>
+{% endblock %}
