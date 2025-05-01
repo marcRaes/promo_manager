@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello VipController!{% endblock %}
+
+{% block body %}
+    <hgroup>
+        <h1>Les codes promo</h1>
+        <h3>Espace VIP</h3>
+    </hgroup>
+    {% for code in codes %}
+        <article>
+            <h2>{{ code.domainName }} <mark>{{ code.discount }} %</mark></h2>
+            <kbd>{{code.name}}</kbd>
+        </article>
+    {% else %}
+        <p>Aucun code promo pour le moment</p>
+    {% endfor %}
+{% endblock %}
