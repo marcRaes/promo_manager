@@ -6,16 +6,18 @@ PromoCode Manager est une plateforme web développée avec **Symfony 7.2** et st
 
 - Authentification et inscription utilisateur
 - Création, modification et suppression de codes promo
-- Interface responsive grâce à [PicoCSS](https://picocss.com/)
+- Interface responsive grâce à [TailwindCSS](https://tailwindcss.com/)
 - Tableau de bord administrateur
-- Historique d’utilisation des codes
+- Avantages utilisateur VIP
+  - Visualisation des code promo 24H avant
+  - Possibilités d'ajouter des code promo VIP
+  - Accès au code promo VIP
 
 ## 🛠️ Stack technique
 
 - [Symfony 7.2](https://symfony.com/)
-- [PicoCSS](https://picocss.com/)
+- [TailwindCSS](https://tailwindcss.com/)
 - PHP 8.2+
-- Doctrine ORM
 - Twig
 - PostgreSQL
 - Asset-mapper
