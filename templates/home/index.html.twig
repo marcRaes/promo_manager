@@ -16,22 +16,32 @@
                 <th class="px-3 py-2 whitespace-nowrap">Nom de domaine</th>
                 <th class="px-3 py-2 whitespace-nowrap">Valide à partir de</th>
                 <th class="px-3 py-2 whitespace-nowrap">Valide jusqu'à</th>
-                <th class="px-3 py-2 whitespace-nowrap">Action</th>
+                <th class="px-3 py-2 whitespace-nowrap">Statut</th>
             </tr>
             </thead>
 
-            <tbody class="divide-y divide-gray-200 *:even:bg-gray-50">
+            <tbody class="divide-y divide-gray-200">
             {% for code in codes %}
-                <tr class="*:text-gray-900 *:first:font-medium text-center">
-                    <td class="px-3 py-2 whitespace-nowrap">{{ code.name }}</td>
+                <tr class="*:text-gray-900 *:first:font-medium text-center {{ promo_state_classes(code) }}">
+                    <td class="px-3 py-2 whitespace-nowrap">
+                        {{ code.name }}
+                        {% if code.isVipOnly %}
+                            <span class="ml-1 inline-block px-2 py-0.5 text-xs font-semibold text-white bg-yellow-500 rounded">
+                                VIP
+                            </span>
+                        {% endif %}
+                    </td>
                     <td class="px-3 py-2 whitespace-nowrap">{{ code.discount }}</td>
                     <td class="px-3 py-2 whitespace-nowrap">{{ code.domainName }}</td>
-                    <td class="px-3 py-2 whitespace-nowrap">{{ code.validFrom ? code.validFrom|date('Y-m-d') : '' }}</td>
-                    <td class="px-3 py-2 whitespace-nowrap">{{ code.validUntil ? code.validUntil|date('Y-m-d') : '' }}</td>
-                    <td class="px-3 py-2 whitespace-nowrap flex justify-center gap-2 p-2">
+                    <td class="px-3 py-2 whitespace-nowrap">{{ code.validFrom|date('d-m-Y') }}</td>
+                    <td class="px-3 py-2 whitespace-nowrap">{{ code.validUntil|date('d-m-Y') }}</td>
+                    <td class="px-3 py-2 whitespace-nowrap">
+                        <span class="text-xs font-semibold {{ promo_state_label_classes(code) }} rounded px-2 py-1">{{ promo_state_label(code) }}</span>
+                    </td>
+                    {#<td class="px-3 py-2 whitespace-nowrap flex justify-center gap-2 p-2">
                         <a href="{{ path('app_code_edit', {'id': code.id}) }}" class="rounded-md bg-teal-600 p-1 font-medium text-white shadow-sm transition-colors hover:bg-teal-800">Modifier</a>
                         {{ include('code/_delete_form.html.twig') }}
-                    </td>
+                    </td>#}
                 </tr>
             {% else %}
                 <tr>

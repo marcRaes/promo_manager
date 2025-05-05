@@ -1,4 +1,13 @@
 {{ form_start(form) }}
+
+{% if form.vars.errors|length > 0 %}
+    <div class="mb-4">
+        {% for error in form.vars.errors %}
+            <div class="alert alert-danger">{{ error.message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+
 <article class="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-6">
     <p class="text-gray-500 text-center">Remplissez le formulaire</p>
 
@@ -19,6 +28,13 @@
         {{ form_label(form.validUntil, '', {'attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
         {{ form_widget(form.validUntil, {'attr': {'class': 'mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500'}}) }}
     </div>
+
+    {% if form.isVipOnly is defined %}
+        <div>
+            {{ form_label(form.isVipOnly, '', {'attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.isVipOnly, {'attr': {'class': 'mt-1'}}) }}
+        </div>
+    {% endif %}
 
     <p class="text-center">
         <button type="submit" class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Enregistrer</button>

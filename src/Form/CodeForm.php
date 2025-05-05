@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Code;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,12 +33,20 @@ class CodeForm extends AbstractType
                 'label' => 'Valide jusqu\'à',
             ])
         ;
+
+        if ($options['is_vip_user']) {
+            $builder->add('isVipOnly', CheckboxType::class, [
+                'label' => 'Code VIP',
+                'required' => false,
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Code::class,
+            'is_vip_user' => false,
         ]);
     }
 }

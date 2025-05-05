@@ -5,8 +5,12 @@ namespace App\Entity;
 use App\Repository\CodeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Validator;
 
 #[ORM\Entity(repositoryClass: CodeRepository::class)]
+#[Validator\UniquePromoCode]
+#[Validator\NotExpiredPromoCode]
+#[Validator\ValidPromoDateRange]
 class Code
 {
     #[ORM\Id]
@@ -32,6 +36,9 @@ class Code
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $validUntil = null;
+
+    #[ORM\Column(options: ['default' => false])]
+    private ?bool $isVipOnly = false;
 
     public function getId(): ?int
     {
@@ -106,6 +113,18 @@ class Code
     public function setValidUntil(\DateTime $validUntil): static
     {
         $this->validUntil = $validUntil;
+
+        return $this;
+    }
+
+    public function isVipOnly(): ?bool
+    {
+        return $this->isVipOnly;
+    }
+
+    public function setIsVipOnly(bool $isVipOnly): static
+    {
+        $this->isVipOnly = $isVipOnly;
 
         return $this;
     }

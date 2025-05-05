@@ -13,6 +13,12 @@
         {% endblock %}
     </head>
     <body>
+        <style>
+            [x-cloak] { display: none !important; }
+        </style>
+        {% include '_header.html.twig' %}
+        {% include '_flash_message.html.twig' %}
+        {% include '_vip_alert.html.twig' %}
         <main>
             {% block body %}{% endblock %}
         </main>
