@@ -1,0 +1,38 @@
+<div x-data="{ mobileOpen: false }" class="flex items-center">
+    <div class="hidden md:flex items-center space-x-4">
+        {% if not is_granted('ROLE_USER') %}
+            <a href="{{ path('app_register') }}" class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-md text-sm font-medium">Créer un compte</a>
+            <a href="{{ path('app_login') }}" class="bg-violet-600 hover:bg-violet-700 text-white px-3 py-2 rounded-md text-sm font-medium">Connexion</a>
+        {% else %}
+            {% if app.request.get('_route') != 'app_dashboard' %}
+                <a href="{{ path('app_dashboard') }}" class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-md text-sm font-medium">Tableau de bord</a>
+            {% endif %}
+            <a href="{{ path('app_logout') }}" class="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-md text-sm font-medium">Déconnexion</a>
+        {% endif %}
+    </div>
+
+    <button @click="mobileOpen = !mobileOpen" class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 focus:outline-none">
+        <svg class="h-6 w-6" x-show="!mobileOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
+        </svg>
+        <svg class="h-6 w-6" x-show="mobileOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </button>
+
+    <div x-show="mobileOpen"
+         x-transition
+         class="absolute top-full right-0 z-40 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none md:hidden">
+        <div class="py-1">
+            {% if not is_granted('ROLE_USER') %}
+                <a href="{{ path('app_register') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Créer un compte</a>
+                <a href="{{ path('app_login') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Connexion</a>
+            {% else %}
+                {% if app.request.get('_route') != 'app_dashboard' %}
+                    <a href="{{ path('app_dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tableau de bord</a>
+                {% endif %}
+                <a href="{{ path('app_logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Déconnexion</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -12,11 +12,22 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
+    <body class="bg-gray-100 text-gray-900">
         <style>
             [x-cloak] { display: none !important; }
         </style>
-        {% include '_header.html.twig' %}
+        <header class="bg-white shadow-md">
+            <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    {% include 'partials/_header_logo.html.twig' %}
+                    {% include 'partials/_header_nav.html.twig' %}
+                </div>
+            </div>
+
+            {% if is_granted('ROLE_USER') %}
+                {% include 'partials/_header_secondary.html.twig' %}
+            {% endif %}
+        </header>
         {% include '_flash_message.html.twig' %}
         {% include '_vip_alert.html.twig' %}
         <main>

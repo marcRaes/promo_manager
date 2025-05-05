@@ -1,19 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Créer un compte{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <section class="flex items-center justify-center px-4 py-10 min-h-[calc(100vh-64px)]">
+        <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md space-y-6">
+            <h1 class="text-2xl sm:text-3xl font-bold text-center text-gray-900">Créer un compte</h1>
 
-    {{ form_errors(registrationForm) }}
+            {% if registrationForm.vars.errors|length > 0 %}
+                <div class="rounded-md bg-red-100 p-3 text-base text-red-700 border border-red-300">
+                    {{ form_errors(registrationForm) }}
+                </div>
+            {% endif %}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+            {{ form_start(registrationForm, { attr: { class: 'space-y-5 text-base' } }) }}
+            <div>
+                {{ form_label(registrationForm.email, 'E-mail', { label_attr: { class: 'block font-medium text-gray-700' } }) }}
+                {{ form_widget(registrationForm.email, {
+                    attr: {
+                        class: 'mt-1 w-full rounded-md border border-gray-300 bg-white text-gray-900 shadow-sm focus:border-teal-500 focus:ring-teal-500 px-3 py-2'
+                    }
+                }) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+            <div>
+                {{ form_label(registrationForm.plainPassword, 'Mot de passe', { label_attr: { class: 'block font-medium text-gray-700' } }) }}
+                {{ form_widget(registrationForm.plainPassword, {
+                    attr: {
+                        class: 'mt-1 w-full rounded-md border border-gray-300 bg-white text-gray-900 shadow-sm focus:border-teal-500 focus:ring-teal-500 px-3 py-2'
+                    }
+                }) }}
+                {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+
+            <div class="flex items-center gap-2">
+                {{ form_widget(registrationForm.agreeTerms, {
+                    attr: { class: 'mt-0.5 rounded border-gray-300 text-teal-600 focus:ring-teal-500' }
+                }) }}
+                {{ form_label(registrationForm.agreeTerms, 'J\'accepte les <a href="' ~ path('app_terms') ~ '" class="text-teal-600 hover:underline">conditions d\'utilisation</a>', {
+                    label_attr: { class: 'text-gray-700 text-sm' },
+                    label_html: true
+                }) }}
+                {{ form_errors(registrationForm.agreeTerms) }}
+            </div>
+
+            <button type="submit"
+                    class="w-full inline-flex justify-center items-center px-4 py-2 bg-teal-600 text-white text-base font-medium rounded-md shadow-sm hover:bg-teal-700 transition">
+                Créer mon compte
+            </button>
+            <p class="text-sm text-center text-gray-600">
+                Déjà un compte ?
+                <a href="{{ path('app_login') }}" class="text-teal-600 hover:underline">Connectez-vous ici</a>
+            </p>
+            {{ form_end(registrationForm) }}
+        </div>
+    </section>
 {% endblock %}

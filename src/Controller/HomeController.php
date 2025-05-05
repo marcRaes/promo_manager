@@ -17,4 +17,10 @@ final class HomeController extends AbstractController
             'user' => $this->getUser(),
         ]);
     }
+
+    #[Route('/conditions-utilisation', name: 'app_terms')]
+    public function terms(): Response
+    {
+        return $this->render('terms_of_use.html.twig');
+    }
 }
