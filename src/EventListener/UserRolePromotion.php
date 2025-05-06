@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[AsDoctrineListener(event: Events::postPersist, priority: 0, connection: 'default')]
-class UserRolePromotion
+readonly class UserRolePromotion
 {
     public function __construct(
         private CodeRepository $codeRepository,
@@ -25,6 +25,10 @@ class UserRolePromotion
 
     public function postPersist(PostPersistEventArgs $eventArgs): void
     {
+        if ('cli' === PHP_SAPI) {
+            return;
+        }
+
         $entity = $eventArgs->getObject();
 
         if (!$entity instanceof Code) {
