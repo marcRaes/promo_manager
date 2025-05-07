@@ -6,10 +6,9 @@ use App\Entity\User;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserRegistrationService
+readonly class UserRegistrationService
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
@@ -17,7 +16,7 @@ class UserRegistrationService
         private Security $security,
     ) {}
 
-    public function register(User $user, string $plainPassword, Request $request): void
+    public function register(User $user, string $plainPassword): void
     {
         $hashedPassword = $this->passwordHasher->hashPassword($user, $plainPassword);
         $user->setPassword($hashedPassword);
@@ -25,6 +24,6 @@ class UserRegistrationService
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        $this->security->login($user, AppAuthenticator::class, $request);
+        $this->security->login($user, AppAuthenticator::class, 'main');
     }
 }

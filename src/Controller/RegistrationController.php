@@ -26,7 +26,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $plainPassword = $form->get('plainPassword')->getData();
-            $userRegistrationService->register($user, $plainPassword, $request);
+            $userRegistrationService->register($user, $plainPassword);
 
             return $this->redirectToRoute('app_home');
         }
